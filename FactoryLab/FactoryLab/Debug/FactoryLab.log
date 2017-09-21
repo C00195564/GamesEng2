@@ -1,0 +1,4 @@
+﻿  Main.cpp
+c:\users\c00195564\desktop\games engineering\repository\factorylab\factorylab\main.cpp(11): warning C4018: '<': signed/unsigned mismatch
+  FactoryLab.vcxproj -> C:\Users\C00195564\Desktop\Games Engineering\repository\FactoryLab\Debug\FactoryLab.exe
+  FactoryLab.vcxproj -> C:\Users\C00195564\Desktop\Games Engineering\repository\FactoryLab\Debug\FactoryLab.pdb (Partial PDB)
