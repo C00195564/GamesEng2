@@ -1,0 +1,12 @@
+﻿  Main.cpp
+c:\users\c00195564\desktop\commandlab\project1\stdafx.h(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\c00195564\desktop\commandlab\project1\stdafx.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\c00195564\desktop\commandlab\project1\stdafx.h(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\c00195564\desktop\commandlab\project1\stdafx.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  MacroCommand.cpp
+  Game.cpp
+c:\users\c00195564\desktop\commandlab\project1\stdafx.h(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\c00195564\desktop\commandlab\project1\stdafx.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  Project1.vcxproj -> C:\Users\C00195564\Desktop\CommandLab\Debug\BaseProject.exe
+  Project1.vcxproj -> C:\Users\C00195564\Desktop\CommandLab\Debug\BaseProject.pdb (Partial PDB)
