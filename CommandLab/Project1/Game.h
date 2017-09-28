@@ -15,10 +15,10 @@ public:
 	void HandleEvents(SDL_Event action);
 	void Render();
 	void cleanup();
-	JumpCommand* jump;
-	FireCommand* fire;
-	SwapCommand* swap;
-	LurchCommand* lurch;
+	Command* jump;
+	Command* fire;
+	Command* swap;
+	Command* lurch;
 
 	MacroCommand m_undoList;
 	MacroCommand m_redoList;
