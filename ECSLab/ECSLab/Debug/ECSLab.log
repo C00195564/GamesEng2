@@ -1,0 +1,6 @@
+﻿  main.cpp
+c:\users\c00195564\desktop\games engineering\repository\ecslab\ecslab\healthsystem.h(15): warning C4018: '<': signed/unsigned mismatch
+c:\users\c00195564\desktop\games engineering\repository\ecslab\ecslab\positionsystem.h(15): warning C4018: '<': signed/unsigned mismatch
+c:\users\c00195564\desktop\games engineering\repository\ecslab\ecslab\controlsystem.h(15): warning C4018: '<': signed/unsigned mismatch
+  ECSLab.vcxproj -> C:\Users\C00195564\Desktop\Games Engineering\repository\ECSLab\Debug\ECSLab.exe
+  ECSLab.vcxproj -> C:\Users\C00195564\Desktop\Games Engineering\repository\ECSLab\Debug\ECSLab.pdb (Partial PDB)
