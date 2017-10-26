@@ -1,4 +1,4 @@
-#include "Animation.h"
+#include <Animation.h>
 #include <thread>
 #include <chrono>
 #include "InputHandler.h"

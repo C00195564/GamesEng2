@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SDL2)\include;$(SDL2_Image)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SDL2)\include;$(SDL2_Image)\include;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(SDL2_Image)\lib;$(SDL2)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
