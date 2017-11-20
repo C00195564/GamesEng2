@@ -116,9 +116,9 @@
     <ClInclude Include="ControlSystem.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HealthComponent.h" />
-    <ClInclude Include="HealthSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="PositionComponent.h" />
-    <ClInclude Include="Positionsystem.h" />
+    <ClInclude Include="AISystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

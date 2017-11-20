@@ -1,6 +1,6 @@
 #include "Entity.h"
-#include "HealthSystem.h"
-#include "Positionsystem.h"
+#include "RenderSystem.h"
+#include "AISystem.h"
 #include "ControlSystem.h"
 
 int main()
@@ -18,21 +18,37 @@ int main()
 	player.addComponent(pc);
 	player.addComponent(cc);
 
-	
+	alien.addComponent(hc);
+	alien.addComponent(pc);
 
-	Healthsystem hs;
-	PositionSystem ps;
+	cat.addComponent(hc);
+	cat.addComponent(pc);
+
+	dog.addComponent(hc);
+	dog.addComponent(pc);
+
+	AISystem as;
+	RenderSystem rs;
 	ControlSystem cs;
 
-	hs.addEntity(player);
-	ps.addEntity(player);
+	as.addEntity(player);
+	rs.addEntity(player);
 	cs.addEntity(player);
+
+	as.addEntity(alien);
+	rs.addEntity(alien);
+
+	as.addEntity(cat);
+	rs.addEntity(cat);
+
+	as.addEntity(dog);
+	rs.addEntity(dog);
 
 	bool running = true;
 	while(running) 
 	{
-		hs.update();
-		ps.update();
+		as.update();
+		rs.update();
 		cs.update();
 	}
 	return 0;

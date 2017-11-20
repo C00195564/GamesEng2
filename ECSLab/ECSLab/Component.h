@@ -2,5 +2,6 @@
 class Component
 {
 public:
+
 	Component() {};
 };

@@ -23,6 +23,10 @@ public:
 	void update()
 	{
 		std::cout << "Control System updating" << std::endl;
+		for (int i = 0; i < entities.size(); i++)
+		{
+			//update entities based on position
+		}
 	}
 
 };

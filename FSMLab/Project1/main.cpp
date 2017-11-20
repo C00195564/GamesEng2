@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) {
 	
 	InputHandler iHandler;
 
+
 	SDL_Window * window = SDL_CreateWindow("Finite State Machine",
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
 
