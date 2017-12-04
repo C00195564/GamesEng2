@@ -1,0 +1,6 @@
+﻿  Skipping... (no relevant changes detected)
+  pch.cpp
+  test.cpp
+C:\Users\C00195564\Desktop\Games Engineering\repository\UnitTestLab\ECSLab\AISystem.h(15): warning C4018: '<': signed/unsigned mismatch
+C:\Users\C00195564\Desktop\Games Engineering\repository\UnitTestLab\ECSLab\AISystem.h(26): warning C4018: '<': signed/unsigned mismatch
+  Test.vcxproj -> C:\Users\C00195564\Desktop\Games Engineering\repository\UnitTestLab\Debug\Test.exe
