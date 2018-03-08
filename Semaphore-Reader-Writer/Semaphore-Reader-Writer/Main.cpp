@@ -4,61 +4,65 @@
 #include <thread>
 #include <chrono>
 #include <vector>
+#include <time.h>
 
-struct Semaphore
+class Semaphore
 {
 private:
 	std::mutex m_mtx;
-	std::unique_lock<std::mutex> m_lock;
 	std::condition_variable m_cv;
 	int m_count;
 
 public:
-	Semaphore(int i = 0) :m_count(i)
+	Semaphore(int i = 1) :m_count(i)
 	{
-		m_lock = std::unique_lock<std::mutex>(m_mtx);
 	}
 
 	void P()
 	{
+		std::unique_lock<decltype(m_mtx)> lock(m_mtx);
 		while (m_count <= 0)
 		{
-			m_cv.wait(m_lock);
+			m_cv.wait(lock);
 		}
-		m_count--;
+		--m_count;
 	}
 
 	void V()
 	{
-		m_count++;
+		std::unique_lock<decltype(m_mtx)> lock(m_mtx);
+		++m_count;
 		m_cv.notify_one();
-	}
-
-	void Lock()
-	{
-		m_lock.lock();
-	}
-
-	void unlock()
-	{
-		m_lock.unlock();
 	}
 };
 
 
-struct Database
+class Database
 {
 public:
 	Database()
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			buffer[i] = 0;
+			storage[i] = 0;
 		}
+		bufPos = 0;
 	}
 
-	int buffer[10];
+	void WriteTo(int num)
+	{
+		storage[bufPos] = num;
+		bufPos = (bufPos + 1) % 10;
+	}
 
+	int ReadFrom(int position)
+	{
+		return storage[position];
+	}
+
+private:
+	int storage[10];
+	int bufPos;
 };
 
 Database db;
@@ -68,41 +72,45 @@ Semaphore mutexR;
 
 void Reader()
 {
-
 	bool running = true;
 	while (running)
 	{
-		mutexR.P();
-		nr++;
-		if (nr == 1)
+		mutexR.P();//pmutexR
+		nr++;//nr = nr+1
+		if (nr == 1)//if nr == 1
 		{
-			rw.P();
+			rw.P();//p(rw)
 			std::cout << "Readers turn for database" << std::endl;
+			
 		}
-		mutexR.V();
+		mutexR.V();//P(mutexR)
 
 		std::cout << "ID: " << std::this_thread::get_id() << std::endl;
 
 		//read database
-		std::cout << "reading database" << std::endl;
-
-		mutexR.P();
-		nr--;
-		if (nr == 0)
+		for (int pos = 0; pos < 10; pos++)
 		{
-			std::cout << "Releasing the database" << std::endl;
-			rw.V();
-			
+			std::cout << "reading: " << db.ReadFrom(pos) << " from the database" << std::endl;
 		}
 
-		mutexR.V;
+
+		mutexR.P();//P(mutexR)
+		nr--;//nr = nr-1
+
+		if (nr == 0)//if(nr == 0)
+		{
+			std::cout << "Releasing the database from readers" << std::endl;
+			rw.V();//V(rw)
+			
+		}
+		mutexR.V();//V(mutexR)
+
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 
 void Writer()
 {
-
-	int i = 0;
 	bool running = true;
 	while (running)
 	{
@@ -113,27 +121,30 @@ void Writer()
 		std::cout << "ID: " << std::this_thread::get_id() << std::endl;
 
 		//write to database
-		std::cout << "Writing to database" << std::endl;
-		db.buffer[0] = 2611;
+		int num = rand() % 100 + 1;
+		std::cout << "Writing: " << num << " to database" << std::endl;
+
+		db.WriteTo(num);
 
 
 		std::cout << "Writer releasing database" << std::endl;
 		rw.V();
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 
 int main()
 {
+	srand(time(NULL));
+
 	std::thread Reader1(Reader);
 	std::thread Reader2(Reader);
-	std::thread Reader3(Reader);
 
 	std::thread Writer1(Writer);
 	std::thread Writer2(Writer);
 
 	Reader1.join();
 	Reader2.join();
-	Reader3.join();
 
 	Writer1.join();
 	Writer2.join();
