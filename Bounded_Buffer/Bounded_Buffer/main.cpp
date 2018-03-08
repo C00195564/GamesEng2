@@ -52,7 +52,7 @@ public:
 std::mutex mtx;
 
 //int buffer[LENGTH];
-int buffer = 0;
+int buffer[10];
 int p = 0;
 int c = 0;
 int empty = LENGTH;
@@ -81,25 +81,20 @@ void Producer()
 	bool run = true;
 	while (run)
 	{
-		while (p < LENGTH)
-		{
-			std::cout << "ID: " << std::this_thread::get_id() << std::endl;
+		std::cout << "ID: " << std::this_thread::get_id() << std::endl;
 
-			P(empty);
-			mtx.lock();
+		P(empty);
+		mtx.lock();
 
 
-			buffer[&back] = a[p];
-			std::cout << "Inserted: " << a[p] << " Into the buffer" << std::endl;
-			back = (back + 1) % LENGTH;
-			p++;
+		buffer[back] = a[p];
+		std::cout << "Inserted: " << buffer[back] << " Into the buffer" << std::endl;
+		back = (back + 1) % LENGTH;
+		p = (p + 1) % LENGTH;
 
-			mtx.unlock();
-			V(full);
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-		}
-		std::cout << "production finished" << std::endl;
-		run = false;
+		mtx.unlock();
+		V(full);
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 
@@ -110,34 +105,34 @@ void Consumer()
 
 	while (run)
 	{
-		while (c < LENGTH)
-		{
-			std::cout << "ID: " << std::this_thread::get_id() << std::endl;
 
-			P(full);
-			mtx.lock();
+		std::cout << "ID: " << std::this_thread::get_id() << std::endl;
 
-			b[c] = buffer[&front];
-			std::cout << "Extracted: " << b[c] << " From the buffer" << std::endl;
-			front = (front + 1) % LENGTH;
-			c++;
-			mtx.unlock();
-			V(empty);
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-		}
-		std::cout << "finished consumer" << std::endl;
-		run = false;
+		P(full);
+		mtx.lock();
+
+		b[c] = buffer[front];
+		std::cout << "Extracted: " << buffer[front] << " From the buffer" << std::endl;
+		front = (front + 1) % LENGTH;
+		c++;
+		mtx.unlock();
+		V(empty);
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+
 	}
-
 }
 
 int main()
 {
-	std::thread prod_Thread(Producer);
-	std::thread cons_thread(Consumer);
+	std::thread prod_Thread1(Producer);
+	//std::thread prod_Thread2(Producer);
+	std::thread cons_thread1(Consumer);
+	//std::thread cons_thread2(Consumer);
 
-	prod_Thread.join();
-	cons_thread.join();
+	prod_Thread1.join();
+	//prod_Thread2.join();
+	cons_thread1.join();
+	//cons_thread2.join();
 
 	system("PAUSE");
 	return 0;
