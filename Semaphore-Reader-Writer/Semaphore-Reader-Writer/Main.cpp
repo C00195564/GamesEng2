@@ -75,7 +75,7 @@ void Reader()
 	bool running = true;
 	while (running)
 	{
-		mutexR.P();//pmutexR
+		mutexR.P();//P(mutexR)
 		nr++;//nr = nr+1
 		if (nr == 1)//if nr == 1
 		{
@@ -83,7 +83,7 @@ void Reader()
 			std::cout << "Readers turn for database" << std::endl;
 			
 		}
-		mutexR.V();//P(mutexR)
+		mutexR.V();//V(mutexR)
 
 		std::cout << "ID: " << std::this_thread::get_id() << std::endl;
 
@@ -95,6 +95,7 @@ void Reader()
 
 
 		mutexR.P();//P(mutexR)
+		
 		nr--;//nr = nr-1
 
 		if (nr == 0)//if(nr == 0)
