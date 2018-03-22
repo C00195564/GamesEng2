@@ -50,6 +50,7 @@
 #define THREAD_NUM 2
 
 std::mutex mtx;
+int Num_Threads = std::thread::hardware_concurrency();
 
 //int buffer[LENGTH];
 int buffer[10];
@@ -133,6 +134,7 @@ void Consumer()
 
 int main()
 {
+	std::cout << "threads available on this machine: " << Num_Threads << std::endl;
 	std::thread prod_Thread1(Producer);
 	std::thread prod_Thread2(Producer);
 	std::thread cons_thread1(Consumer);

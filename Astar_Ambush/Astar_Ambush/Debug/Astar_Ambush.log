@@ -1,0 +1,10 @@
+﻿  main.cpp
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(32): warning C4244: '=': conversion from 'std::numeric_limits<int>::_Ty' to 'float', possible loss of data
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(33): warning C4244: '=': conversion from 'std::numeric_limits<int>::_Ty' to 'float', possible loss of data
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(34): warning C4244: '=': conversion from 'std::numeric_limits<int>::_Ty' to 'float', possible loss of data
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(61): warning C4244: '=': conversion from 'std::numeric_limits<int>::_Ty' to 'float', possible loss of data
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(62): warning C4244: '=': conversion from 'std::numeric_limits<int>::_Ty' to 'float', possible loss of data
+c:\users\c00195564\desktop\games engineering\astar_ambush\astar_ambush\cell.h(63): warning C4244: '=': conversion from 'std::numeric_limits<int>::_Ty' to 'float', possible loss of data
+  Astar_Ambush.vcxproj -> C:\Users\C00195564\Desktop\Games Engineering\Astar_Ambush\Debug\Astar_Ambush.exe
