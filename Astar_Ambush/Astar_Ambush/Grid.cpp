@@ -72,3 +72,15 @@ Grid::Grid(Size size = Small)
 Grid::~Grid()
 {
 }
+
+
+void Grid::Draw(SDL_Renderer &renderer)
+{
+	for (int i = 0; i < m_grid.size(); i++)
+	{
+		for (int j = 0; j < m_grid.at(i).size; i++)
+		{
+			//m_grid.at(i).at(j).draw()
+		}
+	}
+}
