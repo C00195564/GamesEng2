@@ -1,15 +1,10 @@
 #pragma once
-#include <cmath>
-#include <vector>
+#include "stdafx.h"
 #include <memory>
-#include <iostream>
 #include <array>
 #include <limits>
-#include <SDL.h>
-#include "CD_Vector2f.h"
+#include "Link.h"
 
-#define CELL_HEIGHT 64
-#define CELL_WIDTH 64
 
 /// <summary>
 /// Class used to descibe part of the grid used for A* pathfinding
@@ -17,16 +12,16 @@
 class Cell
 {
 public:
-	Cell(int i, int j, bool active, float cost = 1);
+	Cell(int i, int j, bool active, float size, float cost = 1);
 
 	Cell() {};
 	~Cell() {};
 
-	void Draw(SDL_Renderer &renderer);
+	void Draw(SDL_Renderer *renderer);
 	bool m_active;
 
 	Cell *parent;
-	std::vector<Cell*> neighbours;
+	std::vector<Link*> neighbours;
 	/// <summary>
 	/// gets the straight line distance from one point to another
 	/// </summary>
@@ -43,7 +38,10 @@ public:
 	float getH() { return m_h; };
 	float getG() { return m_g; };
 	float getCost() { return m_cost; };
+	float getsize() { return m_rect.w; };
+	SDL_Rect* GetRect() { return &m_rect; };
 	CD_Vector GetGridPosition() { return m_gridPosition; };
+	CD_Vector GetcenterPosition() { return m_origin; };
 	CD_Vector GetOrigin() { return m_origin; };
 	void setCost(float cost) { m_cost = cost; };
 	void setF(float f) { m_f = f; };
@@ -63,9 +61,10 @@ public:
 	}
 
 private:
-
+	float cellSize;
 	CD_Vector m_gridPosition;
 	CD_Vector m_position;
+	SDL_Rect m_rect;
 	CD_Vector m_size;
 	CD_Vector m_origin;
 	float m_cost;

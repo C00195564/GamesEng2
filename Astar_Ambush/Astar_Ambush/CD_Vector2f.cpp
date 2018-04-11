@@ -26,6 +26,7 @@ CD_Vector::CD_Vector(float xPos, float yPos)
 /// <param name="right">Value to assign to this vector.</param>
 void CD_Vector::operator=(CD_Vector right)
 {
+	
 	x = right.x;
 	y = right.y;
 }
@@ -86,6 +87,20 @@ CD_Vector CD_Vector::operator*(float right)
 	return CD_Vector(x * right, y * right);
 }
 
+bool CD_Vector::isNull()
+{
+	if (this->x == NULL || this->y == NULL)
+	{
+		return true;
+	}
+	return false;
+}
+
+void CD_Vector::Null()
+{
+	this->x = NULL;
+	this->y = NULL;
+}
 
 bool CD_Vector::operator==(const CD_Vector other)
 {
@@ -95,6 +110,16 @@ bool CD_Vector::operator==(const CD_Vector other)
 	}
 	return false;
 }
+
+bool CD_Vector::operator!=(const CD_Vector other)
+{
+	if (this->x != other.x || this->y != other.y)
+	{
+		return true;
+	}
+	return false;
+}
+
 /// <summary>
 /// Normalises the vector.
 /// </summary>
@@ -112,4 +137,9 @@ float CD_Vector::Length()
 {
 	float Ans = sqrtf(pow(x, 2) + pow(y, 2));
 	return Ans;
+}
+
+float CD_Vector::Distance(CD_Vector other)
+{
+	return sqrt((other.x - this->x)*(other.x * this->x) + (other.y - this->x)*(other.y - this->x));
 }

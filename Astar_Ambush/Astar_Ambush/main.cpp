@@ -1,67 +1,80 @@
 #include <SDL.h>
-#include <thread>
 #include <iostream>
+#include <ctime>
 #include <vector>
 #include "LTimer.h"
 #include "Grid.h"
-
-
-#define FRAMES_PER_SECOND 30
-#define SCREEN_TICKS_PER_FRAME 1000 / FRAMES_PER_SECOND
-
-#define THREAD_NUM std::thread::hardware_concurrency()
-
+#include "Player.h"
+#include "NPC.h"
+#include "EnemyController.h"
+#include "InputHandler.h"
+#include "SDL_ThreadPool.h"
+#include "stdafx.h"
 
 int main(int argc, char* argv[])
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-
+	srand(std::time(NULL));
 	std::cout << "threads available on this machine: " << THREAD_NUM << std::endl;
-	std::vector<std::thread> threadPool;
+	
+	
 	SDL_Window * window = SDL_CreateWindow("A*mbush",
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 	100, 100, 0);
-	
+	int frames = 0;
 
-
-	Grid *grid;
+	InputHandler handler;
+	Player * player = new Player(CD_Vector(62,62), 5, &handler);
+	std::vector<NPC*> npcVec;
+	EnemyController *eController;
+	Grid *grid = new Grid();
 	bool init = false;
 	while (init == false)
 	{
 		std::cout << "What size grid?" << std::endl;
-		std::cout << "1 for 6 x 5 (30 cells, 5 enemies)" << std::endl;
-		std::cout << "2 for 10 x 10 (100 cells, 50 enemies)" << std::endl;
-		std::cout << "3 for 50 x 20 (1000 cells, 500 enemies)" << std::endl;
+		std::cout << "1 for 30 x 30 (900 cells, 5 enemies)" << std::endl;
+		std::cout << "2 for 100 x 100 (10,000 cells, 50 enemies)" << std::endl;
+		std::cout << "3 for 1000 x 1000 (1,000,000 cells, 500 enemies)" << std::endl;
 		int num = 0;
 		std::cin >> num;
+		SDL_ThreadPool *pool = new SDL_ThreadPool(5);
 		if (num == 1)
 		{
 			grid = new Grid(Small);
-			SDL_SetWindowSize(window, grid->width * 100, grid->height * 100);
-			
+			SDL_SetWindowSize(window, grid->width * PIXELSIZE_SMALL, grid->height * PIXELSIZE_SMALL);
+			grid->AddLinks();
+			player = new Player(CD_Vector(PIXELSIZE_SMALL, PIXELSIZE_SMALL), PIXELSIZE_SMALL, &handler);
+			eController = new EnemyController(Small, player, pool);
 			init = true;
 		}
 		else if (num == 2)
 		{
 			grid = new Grid(Medium);
-			SDL_SetWindowSize(window, grid->width * 100, grid->height * 100);
+			SDL_SetWindowSize(window, grid->width * PIXELSIZE_MEDIUM, grid->height * PIXELSIZE_MEDIUM);
 			std::cout << (grid->width) << " " << (grid->height) << std::endl;
+			grid->AddLinks();
+			player = new Player(CD_Vector(PIXELSIZE_MEDIUM, PIXELSIZE_MEDIUM), PIXELSIZE_MEDIUM, &handler);
+			eController = new EnemyController(Medium, player, pool);
 			init = true;
 		}
 		else if (num == 3)
 		{
 			grid = new Grid(Large);
-			SDL_SetWindowSize(window, grid->width * 20, grid->height * 20);
+			SDL_SetWindowSize(window, grid->width * PIXELSIZE_LARGE, grid->height * PIXELSIZE_LARGE);
 			std::cout << (grid->width) << " " << (grid->height) << std::endl;
+			grid->AddLinks();
+			player = new Player(CD_Vector(PIXELSIZE_LARGE, PIXELSIZE_LARGE), PIXELSIZE_LARGE, &handler);
+			eController = new EnemyController(Large, player, pool);
 			init = true;
 		}
 		else
 		{
-			std::cout << "command not recognised" << std::endl;
+			std::cout << num + " command not recognised" << std::endl;
 		}
+		
 	}
-
 	
+	grid->StartCollision(player);
 
 	SDL_Renderer * renderer = SDL_CreateRenderer(window, -1, 0);
 	bool running = true;
@@ -81,32 +94,57 @@ int main(int argc, char* argv[])
 			avgfps = 0;
 		}
 
+		//update player
 		while (SDL_PollEvent(&evt))
 		{
-			if (evt.type == SDL_KEYDOWN)
+			switch (evt.type)
 			{
-
-			}
-			else if (evt.type == SDL_KEYUP)
-			{
-				 
+			case SDL_KEYDOWN:
+				handler.handleKeyDownEvent(evt);
+				break;
+			case SDL_KEYUP:
+				handler.handleKeyUpEvent(evt);
 			}
 		}
+
+		player->Update();
+
+		//eController->update();
+		//grid->collision(player);
 
 		SDL_SetRenderDrawColor(renderer, 240, 240, 240, 255);
 		SDL_RenderClear(renderer);
 
-
+		//draw everything
+		for (int i = 0; i < npcVec.size(); i++)
+		{
+			npcVec.at(i)->Draw(renderer);
+		}
+		
+		grid->Draw(renderer);
+		//eController->draw(renderer);
+		player->Draw(renderer);
 
 		SDL_RenderPresent(renderer);
+		
+		
+		if (frames < FRAMES_PER_SECOND)
+		{
+			frames = 0;
+			//std::cout << "Frames per second: " << avgfps << std::endl;
+		}
 
+		//check if we finished too fast
 		int frameTicks = captimer.getTicks();
 		if (frameTicks < SCREEN_TICKS_PER_FRAME)
 		{
 			//Wait remaining time
 			SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
+			
 		}
+		frames++;
 		framecounter++;
+		
 	}
 
 
@@ -115,3 +153,5 @@ int main(int argc, char* argv[])
 	SDL_Quit();
 	return 0;
 }
+
+
