@@ -20,6 +20,7 @@ public:
 	void StartCollision(Player *player);
 	void collision(Player *player);
 	bool finished;
+	void Reset();
 private:
 	SDL_Thread *colThread;
 	std::vector<std::vector<Cell>> m_grid;

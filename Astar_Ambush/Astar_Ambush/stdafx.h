@@ -6,7 +6,6 @@
 #include <thread>
 #include <iostream>
 #include <SDL.h>
-#include <SDL_image.h>
 
 #include "CD_Vector2f.h"
 

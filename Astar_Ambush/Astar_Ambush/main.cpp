@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 	InputHandler handler;
 	Player * player = new Player(CD_Vector(62,62), 5, &handler);
 	std::vector<NPC*> npcVec;
-	EnemyController *eController;
+	EnemyController *eController = new EnemyController();
 	Grid *grid = new Grid();
 	bool init = false;
 	while (init == false)
@@ -37,14 +37,14 @@ int main(int argc, char* argv[])
 		std::cout << "3 for 1000 x 1000 (1,000,000 cells, 500 enemies)" << std::endl;
 		int num = 0;
 		std::cin >> num;
-		SDL_ThreadPool *pool = new SDL_ThreadPool(5);
+		SDL_ThreadPool *pool = new SDL_ThreadPool(2);
 		if (num == 1)
 		{
 			grid = new Grid(Small);
 			SDL_SetWindowSize(window, grid->width * PIXELSIZE_SMALL, grid->height * PIXELSIZE_SMALL);
 			grid->AddLinks();
 			player = new Player(CD_Vector(PIXELSIZE_SMALL, PIXELSIZE_SMALL), PIXELSIZE_SMALL, &handler);
-			eController = new EnemyController(Small, player, pool);
+			eController = new EnemyController(Small, player, pool, grid);
 			init = true;
 		}
 		else if (num == 2)
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 			std::cout << (grid->width) << " " << (grid->height) << std::endl;
 			grid->AddLinks();
 			player = new Player(CD_Vector(PIXELSIZE_MEDIUM, PIXELSIZE_MEDIUM), PIXELSIZE_MEDIUM, &handler);
-			eController = new EnemyController(Medium, player, pool);
+			eController = new EnemyController(Medium, player, pool, grid);
 			init = true;
 		}
 		else if (num == 3)
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 			std::cout << (grid->width) << " " << (grid->height) << std::endl;
 			grid->AddLinks();
 			player = new Player(CD_Vector(PIXELSIZE_LARGE, PIXELSIZE_LARGE), PIXELSIZE_LARGE, &handler);
-			eController = new EnemyController(Large, player, pool);
+			eController = new EnemyController(Large, player, pool, grid);
 			init = true;
 		}
 		else
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 
 		player->Update();
 
-		//eController->update();
+		eController->update();
 		//grid->collision(player);
 
 		SDL_SetRenderDrawColor(renderer, 240, 240, 240, 255);
@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
 		}
 		
 		grid->Draw(renderer);
-		//eController->draw(renderer);
+		eController->draw(renderer);
 		player->Draw(renderer);
 
 		SDL_RenderPresent(renderer);

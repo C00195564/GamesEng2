@@ -16,6 +16,7 @@ public:
 	void Update();
 	void Draw(SDL_Renderer *rend);
 	CD_Vector GetPos() { return m_position; };
+	std::vector<CD_Vector>* GetPath() { return &m_path; };
 	float getsize() { return m_size; };
 	bool requestPath;
 

@@ -28,6 +28,6 @@ public:
 	/// <param name="start">Cell the entity is currently in</param>
 	/// <param name="target">Cell the target is in</param>
 	/// <returns>vector of origins of cells on the path from start cell to target cell</returns>
-	std::vector<CD_Vector> AStar(Cell* start, Cell* target);
+	void AStar(Cell* start, Cell* target, std::vector<CD_Vector> *Path, bool* request);
 };
 

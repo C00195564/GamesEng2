@@ -138,6 +138,8 @@ Grid::Grid(Size size = Small)
 		m_walls.push_back(&m_grid.at(i).at(0));
 		m_walls.push_back(&m_grid.at(i).at(width - 1));
 	}
+
+	Reset();
 }
 
 typedef struct
@@ -243,8 +245,9 @@ int Collisionfunc(void* data)
 {
 	CollisionWrapper *ptr = reinterpret_cast<CollisionWrapper*>(data);
 	Player* player = ptr->player;
-
 	std::vector<Cell*> *m_walls = ptr->walls;
+
+	free(ptr);
 	while (true)
 	{
 		if (finished == true)
@@ -302,7 +305,7 @@ int Collisionfunc(void* data)
 					}
 				}
 			}
-
+			free(temp);
 		}
 	}
 
@@ -394,4 +397,16 @@ Cell* Grid::GetNearestCell(CD_Vector pos)
 	//return the cell at that position
 	Cell* cell = &m_grid.at(tempi).at(tempj);
 	return cell;
+}
+
+
+void Grid::Reset()
+{
+	for (auto i : m_grid)
+	{
+		for (auto j : i)
+		{
+			j.clear();
+		}
+	}
 }

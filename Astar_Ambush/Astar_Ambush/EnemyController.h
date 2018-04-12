@@ -12,8 +12,8 @@
 class EnemyController
 {
 public:
-
-	EnemyController(Size size,  Player *player, SDL_ThreadPool * pool);
+	EnemyController() {};
+	EnemyController(Size size,  Player *player, SDL_ThreadPool * pool, Grid * grid);
 	~EnemyController();
 	void update();
 	void draw(SDL_Renderer *rend);
@@ -23,6 +23,6 @@ private:
 	PathFinder m_pathFinder;
 	Player *m_playerTarget;
 	std::vector<NPC*> m_npcVec;
-	
+	Grid * m_grid;
 };
 

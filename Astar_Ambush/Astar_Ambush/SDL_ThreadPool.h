@@ -1,10 +1,11 @@
 #pragma once
-#include <SDL.h>
+
+#include "stdafx.h"
+#include "Grid.h"
 #include <SDL_thread.h>
 #include <SDL_mutex.h>
 #include <functional>
 #include <queue>
-#include "stdafx.h"
 
 
 //pass in pointer of vector<CD_vector> for the path then have thread update that.

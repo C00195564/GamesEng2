@@ -8,12 +8,15 @@ PathFinder::~PathFinder()
 {
 }
 
-std::vector<CD_Vector> PathFinder::AStar(Cell* start, Cell* target)
+
+void PathFinder::AStar(Cell* start, Cell* target, std::vector<CD_Vector> *Path, bool* request)
 {
 	std::vector<Cell*> openSet;
 	std::vector<Cell*> closedSet;
 	Cell* m_start = start;
 	Cell* m_target = target;
+	
+	free(start);
 
 	openSet.push_back(start);
 	//while the openset is not empty
@@ -50,7 +53,11 @@ std::vector<CD_Vector> PathFinder::AStar(Cell* start, Cell* target)
 			//elements have been pushed to vector from target to beginning.
 			//reverse the elements so beginning of the path is at the from of the vector
 			std::reverse(path.begin(), path.end());
-			return path;
+			//send the path back to the NPC who requested it
+			*Path = path;
+			//Let the NPC know it has a new path to follow
+			*request = false;
+			break;
 		}
 
 		openSet.erase(openSet.begin() + smallest);
@@ -85,8 +92,4 @@ std::vector<CD_Vector> PathFinder::AStar(Cell* start, Cell* target)
 			}
 		}
 	}
-
-	std::cout << "Unable to find path" << std::endl;
-	std::vector<CD_Vector> err;
-	return err;
 }
