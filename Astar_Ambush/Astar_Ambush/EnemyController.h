@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
+#include<functional>
 #include "NPC.h"
-#include "PathFinder.h"
 #include "Player.h"
 #include "SDL_ThreadPool.h"
 
@@ -17,10 +17,9 @@ public:
 	~EnemyController();
 	void update();
 	void draw(SDL_Renderer *rend);
-	void Requestpath();
+
 private:
 	SDL_ThreadPool * m_tPool;
-	PathFinder m_pathFinder;
 	Player *m_playerTarget;
 	std::vector<NPC*> m_npcVec;
 	Grid * m_grid;

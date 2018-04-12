@@ -13,7 +13,7 @@ NPC::NPC(CD_Vector position, float size, float speed)
 	m_size = size;
 	m_TimeToRequest = rand() % 6 + 1;
 	requestPath = true;
-	m_currentTarget.Null();
+	m_currentTarget = m_position;
 	int i;
 }
 
@@ -27,31 +27,31 @@ void NPC::Update()
 	//if we haven't requested a new path follow path as normal
 	if (!requestPath)
 	{
-		if (m_currentTarget.isNull())
+		m_currentTarget = m_path[m_followCount];
+		
+		//movement
+		m_velocity = m_velocity + GetLinear(m_currentTarget) * m_speed;
+		if (m_velocity.x > m_speed)
 		{
-			//movement
-			m_velocity = m_velocity + GetLinear(m_currentTarget) * m_speed;
-			if (m_velocity.x > m_speed)
-			{
-				m_velocity.x = m_speed;
-			}
-			else if (m_velocity.x < -m_speed)
-			{
-				m_velocity.x = -m_speed;
-			}
-			if (m_velocity.y > m_speed)
-			{
-				m_velocity.y = m_speed;
-			}
-			else if (m_velocity.y < -m_speed)
-			{
-				m_velocity.y = -m_speed;
-			}
-			m_position += m_velocity;
-			m_rect.x = m_position.x;
-			m_rect.y = m_position.y;
-
+			m_velocity.x = m_speed;
 		}
+		else if (m_velocity.x < -m_speed)
+		{
+			m_velocity.x = -m_speed;
+		}
+		if (m_velocity.y > m_speed)
+		{
+			m_velocity.y = m_speed;
+		}
+		else if (m_velocity.y < -m_speed)
+		{
+			m_velocity.y = -m_speed;
+		}
+		m_position += m_velocity;
+		m_rect.x = m_position.x - m_rect.w;
+		m_rect.y = m_position.y - m_rect.h;
+
+		
 		//if we reached our target
 		if (m_position.Distance(m_currentTarget) < 2)
 		{
@@ -66,7 +66,7 @@ void NPC::Update()
 			else
 			{
 				//if we have reached the player
-				if (m_followCount < m_path.size())
+				if (m_followCount > m_path.size())
 				{
 					requestPath = true;
 					m_followCount = 0;
@@ -74,7 +74,10 @@ void NPC::Update()
 				else
 				{
 					//fetch the next target
-					m_currentTarget = m_path[m_followCount];
+					if (!m_path.empty())
+					{
+						m_currentTarget = m_path[m_followCount];
+					}
 				}
 			}
 		}

@@ -1,75 +1,10 @@
-﻿  SDL_ThreadPool.cpp
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\cell.h(41): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-  Player.cpp
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(10): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(27): warning C4244: '-=': conversion from 'const float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(32): warning C4244: '+=': conversion from 'const float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(37): warning C4244: '-=': conversion from 'const float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(42): warning C4244: '+=': conversion from 'const float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(57): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\player.cpp(58): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-  Pathfinder.cpp
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\cell.h(41): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\pathfinder.cpp(26): warning C4018: '<': signed/unsigned mismatch
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\pathfinder.cpp(73): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\pathfinder.cpp(78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\pathfinder.cpp(86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  NPC.cpp
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(10): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(17): warning C4101: 'i': unreferenced local variable
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(51): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(52): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\npc.cpp(69): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\cell.h(41): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\main.cpp(17): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\main.cpp(119): warning C4018: '<': signed/unsigned mismatch
-  LTimer.cpp
-  InputHandler.cpp
-  Grid.cpp
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\cell.h(41): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(163): warning C4018: '<': signed/unsigned mismatch
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(165): warning C4018: '<': signed/unsigned mismatch
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(259): warning C4018: '<': signed/unsigned mismatch
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(284): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(289): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(297): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(302): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(263): warning C4390: ';': empty controlled statement found; is this the intent?
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(330): warning C4018: '<': signed/unsigned mismatch
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(355): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(360): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(368): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(373): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(334): warning C4390: ';': empty controlled statement found; is this the intent?
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(386): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\grid.cpp(387): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  EnemyController.cpp
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\cell.h(41): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(20): warning C4018: '<': signed/unsigned mismatch
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(71): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(106): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(107): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(109): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(115): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(116): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(118): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(124): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(125): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\enemycontroller.cpp(127): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\daz\desktop\gameseng2\astar_ambush\astar_ambush\sdl_threadpool.h(22): fatal error C1001: An internal error has occurred in the compiler.
-  (compiler file 'msc1.cpp', line 1504)
-   To work around this problem, try simplifying or changing the program near the locations listed above.
-  Please choose the Technical Support command on the Visual C++ 
-   Help menu, or open the Technical Support help file for more information
-  INTERNAL COMPILER ERROR in 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\bin\HostX86\x86\CL.exe'
-      Please choose the Technical Support command on the Visual C++
-      Help menu, or open the Technical Support help file for more information
+﻿  NPC.cpp
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(10): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(17): warning C4101: 'i': unreferenced local variable
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(51): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(52): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\c00195564\desktop\games engineering\repository\astar_ambush\astar_ambush\npc.cpp(69): warning C4018: '>': signed/unsigned mismatch
+  Astar_Ambush.vcxproj -> C:\Users\C00195564\Desktop\Games Engineering\repository\Astar_Ambush\Debug\Astar_Ambush.exe

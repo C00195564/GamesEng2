@@ -2,17 +2,25 @@
 
 SDL_mutex *aStarMutex;
 
-void AStar(Cell* start, Cell* target, std::vector<CD_Vector> *Path, bool* request, Grid *grid)
+typedef struct {
+	Cell * NPC;
+	Cell * Player;
+	std::vector<CD_Vector> *path;
+	bool *request;
+	Grid* grid;
+}AstarHolder;
+
+void AStar(void *args)
 {
 	SDL_LockMutex(aStarMutex);
+	std::cout << "starting task" << std::endl;
+	AstarHolder* holder = reinterpret_cast<AstarHolder*>(args);
 	std::vector<Cell*> openSet;
 	std::vector<Cell*> closedSet;
-	Cell* m_start = start;
-	Cell* m_target = target;
-
-	free(start);
-
-	openSet.push_back(start);
+	Cell* m_start = holder->NPC;
+	Cell* m_target = holder->Player;
+	
+	openSet.push_back(m_start);
 	//while the openset is not empty
 	while (openSet.size() > 0)
 	{
@@ -30,10 +38,10 @@ void AStar(Cell* start, Cell* target, std::vector<CD_Vector> *Path, bool* reques
 		//std::cout << current->GetGridPosition().x << " " << current->GetGridPosition().y << std::endl;
 
 		//if the search has reached the target
-		if (*current == *target)
+		if (*current == *m_target)
 		{
-			std::vector<CD_Vector> path;
-			path.push_back(current->GetOrigin());
+			std::vector<CD_Vector> newpath;
+			newpath.push_back(current->GetOrigin());
 			//std::cout << "Found target" << std::endl;
 			//std::cout << "Path: " << current->GetGridPosition().x << " " << current->GetGridPosition().y << std::endl;
 			//follow back through all the parent pointers to the first cell
@@ -42,17 +50,20 @@ void AStar(Cell* start, Cell* target, std::vector<CD_Vector> *Path, bool* reques
 			{
 				current = current->parent;
 				//std::cout << "Path: " << current->GetGridPosition().x << " " << current->GetGridPosition().y << std::endl;
-				path.push_back(current->GetOrigin());
+				newpath.push_back(current->GetOrigin());
 			}
 			//elements have been pushed to vector from target to beginning.
 			//reverse the elements so beginning of the path is at the from of the vector
-			std::reverse(path.begin(), path.end());
+			std::reverse(newpath.begin(), newpath.end());
 			//send the path back to the NPC who requested it
-			*Path = path;
+			
+			*holder->path = newpath;
 			
 			//Let the NPC know it has a new path to follow
-			*request = false;
-			grid->Reset();
+			*holder->request = false;
+
+			holder->grid->Reset();
+			free(holder);
 			SDL_UnlockMutex(aStarMutex);
 			break;
 		}
@@ -85,11 +96,12 @@ void AStar(Cell* start, Cell* target, std::vector<CD_Vector> *Path, bool* reques
 					}
 				}
 
-				link->getCell()->setH(link->getCell()->CalculateH(target->GetGridPosition()));
+				link->getCell()->setH(link->getCell()->CalculateH(m_target->GetGridPosition()));
 				link->getCell()->setF(link->getCell()->getG() + link->getCell()->getH());
 			}
 		}
 	}
+	std::cout << "done" << std::endl;
 }
 
 EnemyController::EnemyController(Size size, Player *player, SDL_ThreadPool* pool, Grid * grid)
@@ -103,28 +115,22 @@ EnemyController::EnemyController(Size size, Player *player, SDL_ThreadPool* pool
 	case Size::Small:
 		for (int i = 0; i < 5; i++)
 		{
-			float u = (rand() % 100 + 90) / 100;
-			float v = (rand() % 100 + 90) / 100;
-			m_npcVec.push_back(new NPC(CD_Vector(PIXELSIZE_SMALL * (int)(Small * u),
-				PIXELSIZE_SMALL * (int)(Small * v)), PIXELSIZE_SMALL, 2.0f));
+			m_npcVec.push_back(new NPC(CD_Vector(PIXELSIZE_SMALL * (int)(Small * 0.9),
+				PIXELSIZE_SMALL * (int)(Small * 0.5)), PIXELSIZE_SMALL, 2.0f));
 		}
 		break;
 	case Size::Medium:
 		for (int i = 0; i < 50; i++)
 		{
-			float u = (rand() % 100 + 90) / 100;
-			float v = (rand() % 100 + 90) / 100;
-			m_npcVec.push_back(new NPC(CD_Vector(PIXELSIZE_MEDIUM * (int)(Medium * u),
-				PIXELSIZE_MEDIUM * (int)(Medium * v)), PIXELSIZE_MEDIUM, 1.0f));
+			m_npcVec.push_back(new NPC(CD_Vector(PIXELSIZE_MEDIUM * (int)(Medium * 0.9),
+				PIXELSIZE_MEDIUM * (int)(Medium * 0.5)), PIXELSIZE_MEDIUM, 1.0f));
 		}
 		break;
 	case Size::Large:
 		for (int i = 0; i < 500; i++)
 		{
-			float u = (rand() % 100 + 90) / 100;
-			float v = (rand() % 100 + 90) / 100;
-			m_npcVec.push_back(new NPC(CD_Vector(PIXELSIZE_LARGE* (int)(Large * u), 
-				PIXELSIZE_LARGE* (int)(Large * v)), PIXELSIZE_LARGE, 0.5f));
+			m_npcVec.push_back(new NPC(CD_Vector(PIXELSIZE_LARGE* (int)(Large * 0.9), 
+				PIXELSIZE_LARGE* (int)(Large * 0.5)), PIXELSIZE_LARGE, 0.5f));
 		}
 		break;
 	default:
@@ -138,6 +144,11 @@ EnemyController::~EnemyController()
 {
 }
 
+
+/// <summary>
+/// Updates the NPC's 
+/// checks if an npc is requesting a path and queues a task with the threadpool
+/// </summary>
 void EnemyController::update()
 {
 	for (auto i : m_npcVec)
@@ -145,8 +156,16 @@ void EnemyController::update()
 		i->Update();
 		if (i->requestPath)
 		{
-			m_tPool->enqueue(AStar, m_grid->GetNearestCell(i->GetPos()),
-				m_grid->GetNearestCell(m_playerTarget->GetPos()), i->GetPath(), &i->requestPath, m_grid);
+			AstarHolder *holder = new AstarHolder();
+			holder->NPC = m_grid->GetNearestCell(i->GetPos());
+			holder->Player = m_grid->GetNearestCell(m_playerTarget->GetPos());
+			holder->path = i->GetPath();
+			holder->request = &i->requestPath;
+			holder->grid = m_grid;
+			//m_tPool->enqueue(AStar, &holder);
+
+			std::function<void()> e = std::bind(&AStar, holder);
+			m_tPool->enqueue(e);
 		}
 	}
 	
@@ -160,8 +179,4 @@ void EnemyController::draw(SDL_Renderer *rend)
 	}
 }
 
-void EnemyController::Requestpath()
-{
-	//m_tPool->enqueue(m_pathFinder.AStar, )
-}
 

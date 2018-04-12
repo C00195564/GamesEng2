@@ -141,5 +141,5 @@ float CD_Vector::Length()
 
 float CD_Vector::Distance(CD_Vector other)
 {
-	return sqrt((other.x - this->x)*(other.x * this->x) + (other.y - this->x)*(other.y - this->x));
+	return sqrt(powf((other.x - this->x),2) + powf((other.y - this->y),2));
 }

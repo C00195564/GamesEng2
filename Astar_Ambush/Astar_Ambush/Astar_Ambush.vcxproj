@@ -130,7 +130,6 @@
     <ClCompile Include="LTimer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NPC.cpp" />
-    <ClCompile Include="Pathfinder.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SDL_ThreadPool.cpp" />
   </ItemGroup>
@@ -143,7 +142,6 @@
     <ClInclude Include="Link.h" />
     <ClInclude Include="LTimer.h" />
     <ClInclude Include="NPC.h" />
-    <ClInclude Include="PathFinder.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SDL_ThreadPool.h" />
     <ClInclude Include="stdafx.h" />

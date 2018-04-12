@@ -402,11 +402,11 @@ Cell* Grid::GetNearestCell(CD_Vector pos)
 
 void Grid::Reset()
 {
-	for (auto i : m_grid)
+	for (int i = 0; i < m_grid.size(); i++)
 	{
-		for (auto j : i)
+		for (int j = 0; j < m_grid.at(i).size(); j++)
 		{
-			j.clear();
+			m_grid[i][j].clear();
 		}
 	}
 }

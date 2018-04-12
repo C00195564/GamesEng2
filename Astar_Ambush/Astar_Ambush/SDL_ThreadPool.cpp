@@ -4,6 +4,7 @@
 SDL_mutex * SDL_ThreadPool::m_eventMutex;
 bool SDL_ThreadPool::m_stopping;
 std::queue<std::function<void()>> SDL_ThreadPool::m_tasks;
+
 SDL_ThreadPool::SDL_ThreadPool(int num_threads)
 {
 	m_eventMutex = SDL_CreateMutex();
@@ -19,7 +20,6 @@ SDL_ThreadPool::~SDL_ThreadPool()
 
 int threadfunc(void* data)
 {
-	std::cout << "worker thread: " << (int)data << std::endl;
 	
 	SDL_ThreadPool::tFunc();
 
@@ -47,12 +47,20 @@ void SDL_ThreadPool::stop()
 	}
 }
 
-
-template<typename func, typename... Args>
-auto SDL_ThreadPool::enqueue(func function, Args&&... Args)
+ /*
+void SDL_ThreadPool::enqueue(std::function<void(void*)> func, void* args)
 {
 	SDL_LockMutex(m_eventMutex);
-	m_tasks.emplace(std::bind(function, std::forward<Args>(args)...));
-	SDL_UnlockMutex(m_evenMutex);
+	m_tasks.emplace(std::bind(func, args));
+	SDL_UnlockMutex(m_eventMutex);
+}*/
+
+
+//template<typename func>
+void SDL_ThreadPool::enqueue(std::function<void()> func)
+{
+	SDL_LockMutex(m_eventMutex);
+	m_tasks.emplace(func);
+	SDL_UnlockMutex(m_eventMutex);
 }
 
